@@ -1,0 +1,63 @@
+output:
+  file: "workload.json"  
+  num_requests: 3000     
+
+prompt_distribution:
+  short:
+    percentage: 40      
+    min_tokens: 10
+    max_tokens: 128
+  
+  medium:
+    percentage: 35    
+    min_tokens: 128
+    max_tokens: 512
+  
+  long:
+    percentage: 25      
+    min_tokens: 512
+    max_tokens: 2048
+
+completion_distribution:
+  short:
+    percentage: 30       # Short completions (< 64 tokens)
+    min_tokens: 10
+    max_tokens: 64
+  
+  medium:
+    percentage: 50       # Medium completions (64-256 tokens)
+    min_tokens: 64
+    max_tokens: 256
+  
+  long:
+    percentage: 20       # Long completions (> 256 tokens)
+    min_tokens: 256
+    max_tokens: 1024
+
+arrival_pattern:
+  type: "uniform"        # Options: poisson, uniform, burst, trace
+  rate: 10.0             # Requests per second (for poisson/uniform)
+  
+  # just for bursts:
+  burst:
+    duration: 5.0      
+    interval: 30.0     
+    multiplier: 5.0     
+
+data_sources:
+  - name: "sharegpt"
+    path: "datasets/sharegpt.jsonl" 
+    enabled: true
+  
+  - name: "alpaca"
+    path: "datasets/alpaca.jsonl"
+    enabled: true
+
+random_seed: 42
+advanced:
+  filter_duplicates: true         
+  shuffle_output: true            
+  include_metadata: true           
+  timestamp_start: 0.0   
+
+

@@ -1,0 +1,65 @@
+# Short Query Configuration
+
+output:
+  file: "workload_short_queries.json"
+  num_requests: 2000
+
+prompt_distribution:
+  short:
+    percentage: 90
+    min_tokens: 5
+    max_tokens: 50
+  medium:
+    percentage: 10
+    min_tokens: 50
+    max_tokens: 128
+  long:
+    percentage: 0
+    min_tokens: 128
+    max_tokens: 512
+
+completion_distribution:
+  short:
+    percentage: 60
+    min_tokens: 10
+    max_tokens: 100
+  medium:
+    percentage: 30
+    min_tokens: 100
+    max_tokens: 200
+  long:
+    percentage: 10
+    min_tokens: 200
+    max_tokens: 500
+
+arrival_pattern:
+  type: "poisson"
+  rate: 20.0
+
+data_sources:
+  - name: "sharegpt"
+    path: "datasets/sharegpt.jsonl"
+    weight: 0.3
+    enabled: true
+  - name: "alpaca"
+    path: "datasets/alpaca.jsonl"
+    weight: 0.2
+    enabled: true
+  - name: "mmlu"
+    path: "datasets/mmlu.jsonl"
+    weight: 0.3
+    enabled: true
+  - name: "custom"
+    path: "datasets/custom.jsonl"
+    weight: 0.2
+    enabled: true
+
+random_seed: 42
+
+advanced:
+  filter_duplicates: true
+  shuffle_output: true
+  include_metadata: true
+  timestamp_start: 0.0
+
+

@@ -1,0 +1,69 @@
+# Stress Test Configuration
+
+output:
+  file: "workload_stress.json"
+  num_requests: 5000
+
+prompt_distribution:
+  short:
+    percentage: 30
+    min_tokens: 10
+    max_tokens: 128
+  medium:
+    percentage: 40
+    min_tokens: 128
+    max_tokens: 512
+  long:
+    percentage: 30
+    min_tokens: 512
+    max_tokens: 2048
+
+completion_distribution:
+  short:
+    percentage: 20
+    min_tokens: 10
+    max_tokens: 64
+  medium:
+    percentage: 50
+    min_tokens: 64
+    max_tokens: 256
+  long:
+    percentage: 30
+    min_tokens: 256
+    max_tokens: 1024
+
+arrival_pattern:
+  type: "burst"
+  rate: 5.0
+  burst:
+    duration: 10.0
+    interval: 60.0
+    multiplier: 10.0
+
+data_sources:
+  - name: "sharegpt"
+    path: "datasets/sharegpt.jsonl"
+    weight: 0.4
+    enabled: true
+  - name: "alpaca"
+    path: "datasets/alpaca.jsonl"
+    weight: 0.3
+    enabled: true
+  - name: "mmlu"
+    path: "datasets/mmlu.jsonl"
+    weight: 0.2
+    enabled: true
+  - name: "custom"
+    path: "datasets/custom.jsonl"
+    weight: 0.1
+    enabled: true
+
+random_seed: 42
+
+advanced:
+  filter_duplicates: true
+  shuffle_output: true
+  include_metadata: true
+  timestamp_start: 0.0
+
+
